@@ -534,19 +534,22 @@ module.exports={"$version":8,"$root":{"version":{"required":true,"type":"enum","
 /* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
+
 const mapboxgl = __webpack_require__(0);
-mapboxgl.accessToken = "pk.eyJ1IjoiYmRlcmllbCIsImEiOiJjajhicXN3MWIwMHF5MnFvazV0eW96OGM0In0.W3YmbjV_q0ZX-woP1ZvG1Q";
+const { Map } = mapboxgl;
 const buildMarker = __webpack_require__(3);
-const fs = buildMarker.marker([-74.009, 40.705], 'fs')
 
+mapboxgl.accessToken = 'pk.eyJ1IjoiY2Fzc2lvemVuIiwiYSI6ImNqNjZydGl5dDJmOWUzM3A4dGQyNnN1ZnAifQ.0ZIRDup0jnyUFVzUa_5d1g';
 
-const map = new mapboxgl.Map({
-  container: 'map',
-  center: [-74.009, 40.705], // FullStack coordinates
-  zoom: 12, // starting zoom
-  style: 'mapbox://styles/mapbox/streets-v10' // mapbox has lots of different map styles available.
-});
-fs.addTo(map);
+const map = new Map({
+	container: 'map',
+	center : [-74.009, 40.705], // FullStack coordinates
+	zoom: 12,
+	style: "mapbox://styles/mapbox/streets-v10"
+})
+
+const marker = buildMarker('fs', [-74.009, 40.705])
+marker.addTo(map)
 
 
 /***/ }),
@@ -580,28 +583,30 @@ module.exports = g;
 /* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = {marker}
-const mapboxgl = __webpack_require__(0);
-// const fs = require('../public/fslogo.png')
+const { Marker } = __webpack_require__(0);
 
+const iconURLs = {
+  hotels: "http://i.imgur.com/D9574Cu.png",
+  restaurants: "http://i.imgur.com/cqR6pUI.png",
+  activities: "http://i.imgur.com/WbMOfMl.png",
+  fs: "fslogo.png"
+};
 
-function marker(coordinates, typeOfLink){
-    const markerDomEl = document.createElement('div');
-    markerDomEl.style.width = '32px';
-    markerDomEl.style.height = '39px';
-    markerDomEl.style.backgroundSize = '32px 39px';
-    markerDomEl.style.backgroundImage = pickLink(typeOfLink);
-    return new mapboxgl.Marker(markerDomEl).setLngLat(coordinates);
+const buildMarker = (type, coords) => {
+	// If user submits unsupported type
+	if(!iconURLs.hasOwnProperty(type)) {
+		type = 'activities'
+	}
+
+	const markerEl = document.createElement('div');
+	markerEl.style.width = '32px';
+	markerEl.style.height = '37px';
+	markerEl.style.backgroundImage = `url(${iconURLs[type]})`; // Look up icon based on activity
+	return new Marker(markerEl).setLngLat(coords)
+
 }
 
-function pickLink(typeOfLink){
-    if (typeOfLink === 'hotel') return 'url(http://i.imgur.com/D9574Cu.png)';
-    if (typeOfLink === 'restaurant') return 'url(http://i.imgur.com/cqR6pUI.png)';
-    if (typeOfLink === 'activity') return 'url(http://i.imgur.com/WbMOfMl.png)';
-    if (typeOfLink === 'fs') return 'url(fslogo.png)'
-    return 'url(http://i.imgur.com/WbMOfMl.png)';
-}
-
+module.exports = buildMarker
 
 /***/ })
 /******/ ]);

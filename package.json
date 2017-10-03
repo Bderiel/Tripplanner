@@ -2,7 +2,7 @@
   "name": "tripplanner",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server/app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack -w"
@@ -13,7 +13,12 @@
     "webpack": "^3.6.0"
   },
   "dependencies": {
-    "bootstrap": "^4.0.0-beta",
-    "mapbox-gl": "^0.40.1"
+    "body-parser": "^1.18.2",
+    "express": "^4.16.1",
+    "mapbox-gl": "^0.40.1",
+    "morgan": "^1.9.0",
+    "pg": "^6.4.0",
+    "pg-hstore": "^2.3.2",
+    "sequelize": "^4.13.3"
   }
 }
