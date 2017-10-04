@@ -14,3 +14,20 @@ const map = new Map({
 
 const marker = buildMarker('fs', [-74.009, 40.705])
 marker.addTo(map)
+
+window.fetch('/api')
+.then(result => {
+	return result.json()
+})
+.then(data => {
+	const selectLoop = Object.keys(data)
+	selectLoop.forEach((key) => {
+		const select = document.getElementById(`${key}-choices`)
+		data[key].forEach((elem) => {
+			let option = document.createElement('option');
+			option.value = elem.name;
+			option.text = elem.name;
+			select.appendChild(option)
+		})
+	})
+})

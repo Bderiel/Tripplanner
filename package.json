@@ -5,7 +5,7 @@
   "main": "server/app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack -w"
+    "start": "webpack -w & nodemon server/app.js"
   },
   "author": "",
   "license": "ISC",

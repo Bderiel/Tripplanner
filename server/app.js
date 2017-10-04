@@ -33,14 +33,20 @@ app.use((req, res, next) => {
     );
   });
 
-  app.listen(PORT, function() {
-    console.log("The server is listening closely on port", PORT);
-    db
-      .sync({force:true})
-      .then(function() {
-        console.log("Synchronated the database");
-      })
-      .catch(function(err) {
-        console.error("Trouble right here in River City", err, err.stack);
-      });
-  });
+db.sync()
+  .then(function () {
+    app.listen(PORT)
+  }).catch(err => {
+    console.log(err.message)
+  })
+  // app.listen(PORT, function() {
+  //   console.log("The server is listening closely on port", PORT);
+  //   db
+  //     .sync()
+  //     .then(function() {
+  //       console.log("Synchronated the database");
+  //     })
+  //     .catch(function(err) {
+  //       console.error("Trouble right here in River City", err, err.stack);
+  //     });
+  // });
