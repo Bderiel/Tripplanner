@@ -574,7 +574,7 @@ const buttons = document.querySelectorAll('.options-btn');
 buttons.forEach(button => {
 	button.addEventListener('click', () => {
 		const easyButton = button.id.slice(0, -4);
-		console.log(easyButton)
+		//console.log(easyButton)
 		const select = document.getElementById(`${easyButton}-choices`);
 		const list = document.getElementById(`${easyButton}-list`);
 		const listElem = document.createElement('li');
@@ -583,11 +583,17 @@ buttons.forEach(button => {
 		const listButton = document.createElement('button')
 		const toAppend = list.appendChild(listElem);
 		toAppend.append(listButton);
+		let marker;
+		testData[easyButton].forEach(el => {
+			if (el.name === select.value){
+				//console.log(el.name,select.value)
+			marker = buildMarker(easyButton,el.place.location).addTo(map);
+		}	
+		})
 		listButton.onclick = function(){
 			toAppend.remove();
+			marker.remove()
 		}
-		//buildMarker(easyButton,)
-
 	})
 })
 
