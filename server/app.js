@@ -17,7 +17,7 @@ app.use(express.static(path.join(__dirname, '..', 'public')))
 //     res.send('hello')
 // })
 
-app.use('/',require('./routes'))
+app.use('/api',require('./routes'))
 
 app.use((req, res, next) => {
     const err = new Error('Not Found');
