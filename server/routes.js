@@ -9,9 +9,9 @@ const Activity = require("../models").Activity;
 
 router.get('/', (req, res, next) => {
     const proArr = [];
-    proArr.push(Activity.findAll({include: [Place]}));
-    proArr.push(Restaurant.findAll({include: [Place]}));
-    proArr.push(Hotel.findAll({include: [Place]}));
+    proArr.push(Activity.findAll({include: [{all: true}]})); //include {[Place]}
+    proArr.push(Restaurant.findAll({include: [{all: true}]}));
+    proArr.push(Hotel.findAll({include: [{all: true}]}));
     Promise.all(proArr)
     .then(([activities, restaurants, hotels]) => {
         // allAttractions.Activity = proArr[0];
