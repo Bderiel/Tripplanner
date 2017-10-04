@@ -15,7 +15,7 @@ const Place = db.define('place', {
         type: Sequelize.STRING
     },
     location: {
-        type: Sequelize.ARRAY(Sequelize.FLOAT,Sequelize.FLOAT)
+        type: Sequelize.ARRAY(Sequelize.FLOAT)
     }
 })
 
@@ -34,7 +34,7 @@ const Restaurant = db.define('restaurant',{
 
 const Activity = db.define('activity',{
     name: {type:Sequelize.STRING},
-    age_range: {type:Sequelize.ENUM('ALL','21+')}
+    age_range: {type:Sequelize.STRING}
 })
 
 Hotel.belongsTo(Place);
@@ -42,4 +42,4 @@ Restaurant.belongsTo(Place);
 Activity.belongsTo(Place);
 
 
-module.exports = {Hotel, Restaurant, Activity, db}
+module.exports = {Hotel, Restaurant, Activity, db,Place}
